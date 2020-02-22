@@ -8,7 +8,11 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
+import com.example.instagreem.fragments.SignUp;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -22,6 +26,9 @@ public class LoginActivity extends AppCompatActivity {
     private EditText    etUsername;
     private EditText    etPassword;
     private Button      btnLogin;
+    private Button      btnSignUp;
+    private EditText    etUser;
+    private EditText    etPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -36,6 +43,17 @@ public class LoginActivity extends AppCompatActivity {
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
+        btnSignUp = findViewById(R.id.btnSignUp);
+        etUser = findViewById(R.id.etUser);
+        etPass = findViewById(R.id.etPass);
+
+        btnSignUp.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Log.e(TAG,"clicked");
+                goSignUp();
+            }
+        });
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
                 login(username,password);
             }
         });
+
     }
 
     private void login(String username, String password){
@@ -60,6 +79,23 @@ public class LoginActivity extends AppCompatActivity {
                 goMainActivity();
             }
         });
+    }
+
+
+    private void goSignUp(){
+        Fragment  fragment;
+        final FragmentManager fragmentManager = getSupportFragmentManager();
+        //Intent i = new Intent(this, SignUp.class);
+        //startActivity(i);
+        fragment = new SignUp();
+        fragmentManager.beginTransaction().replace(R.id.flContainer,fragment).commit();
+
+
+    }
+
+    private void signUp(String user,String pass,String email){
+       // Parse.
+
     }
 
     private void goMainActivity() {
